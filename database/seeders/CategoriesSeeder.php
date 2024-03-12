@@ -16,27 +16,24 @@ class CategoriesSeeder extends Seeder
    */
   public function run()
   {
-    Schema::disableForeignKeyConstraints();
+    $row = 1;
 
-    Category::truncate();
+    if (($open = fopen("database\csv\categories.csv", "r")) !== false) {
+      while (($data = fgetcsv($open, 1000, ",")) !== false) {
+        if ($row === 1) {
+        } else {
+          $new_category = new Category();
 
-    $csvFile = fopen(base_path("database\csv\categories.csv"), "r");
+          $new_category->label = $data["0"];
+          $new_category->color = $data["1"];
 
-    $firstline = true;
+          $new_category->save();
+        }
 
-    while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
-      if (!$firstline) {
-        Category::create([
-          "label" => $data['0'],
-          "color" => $data['1']
-        ]);
+        $row++;
       }
 
-      $firstline = false;
+      fclose($open);
     }
-
-    fclose($csvFile);
-
-    Schema::enableForeignKeyConstraints();
   }
 }
