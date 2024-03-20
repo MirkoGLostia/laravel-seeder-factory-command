@@ -16,12 +16,16 @@ class CategoriesSeeder extends Seeder
    */
   public function run()
   {
-    $row = 1;
+    // LORIS
+    $open = fopen("database\csv\categories.csv", "r");
+    $contents = file_get_contents($open);
+    $rows = explode(PHP_EOL, $contents);
 
-    if (($open = fopen("database\csv\categories.csv", "r")) !== false) {
+
+    $row = 1;
+    if ($open !== false) {
       while (($data = fgetcsv($open, 1000, ",")) !== false) {
-        if ($row === 1) {
-        } else {
+        if ($row !== 1) {
           $new_category = new Category();
 
           $new_category->label = $data["0"];
