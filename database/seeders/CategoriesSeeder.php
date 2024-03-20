@@ -18,8 +18,8 @@ class CategoriesSeeder extends Seeder
   {
     // LORIS
     $open = fopen("database\csv\categories.csv", "r");
-    $contents = file_get_contents($open);
-    $rows = explode(PHP_EOL, $contents);
+    // $contents = file_get_contents($open);
+    // $rows = explode(PHP_EOL, $contents);
 
 
     $row = 1;
