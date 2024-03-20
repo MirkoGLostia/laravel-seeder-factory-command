@@ -53,9 +53,12 @@ class ProductsSeeder extends Seeder
   // }
   public function run()
   {
-    for ($i = 0; $i < 100; $i++) {
-      Product::factory()->create();
+    $products = Product::factory()->count(100)->create();
+
+    foreach ($products as $key => $item) {
+      if ($key === 5) return;
+      $item->highlighted = true;
+      $item->save();
     }
-    // Product::factory()->count(100)->create();
   }
 }

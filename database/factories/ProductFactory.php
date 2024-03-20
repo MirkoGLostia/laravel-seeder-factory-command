@@ -28,10 +28,7 @@ class ProductFactory extends Factory
       'image' => 'https://picsum.photos/500',
       'ean-code' => fake()->bothify('#############'),
       'price' => fake()->randomFloat(2, 9, 99),
-      'highlighted' => function () {
-        $productsHigh = Product::where('highlighted', true)->count();
-        return $productsHigh < 5 ? fake()->boolean() : false;
-      }
+      'highlighted' => false,
     ];
   }
 }

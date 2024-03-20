@@ -14,7 +14,7 @@ class UpdateFeatured extends Command
    *
    * @var string
    */
-  protected $signature = 'products:update-featured';
+  protected $signature = 'products:update-featured {--presentation}';
 
   /**
    * The console command description.
@@ -38,7 +38,11 @@ class UpdateFeatured extends Command
       ]);
     }
 
-    $productsHigh = Product::inRandomOrder()->take(5)->get();
+    if ($this->option('presentation')) {
+      $productsHigh = Product::take(5)->get();
+    } else {
+      $productsHigh = Product::inRandomOrder()->take(5)->get();
+    }
 
     foreach ($productsHigh as $item) {
       $item->update([
